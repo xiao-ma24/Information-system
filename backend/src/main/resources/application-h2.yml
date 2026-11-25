@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:campus;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-h2.sql
+
+campus:
+  auth:
+    demo-data: true
+    internal-secret: ${AUTH_INTERNAL_SECRET:local-dev-secret}

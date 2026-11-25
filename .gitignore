@@ -1,0 +1,21 @@
+# 构建产物
+backend/target/
+**/target/
+*.jar
+
+# 前端依赖与产物
+node_modules/
+dist/
+
+# 本地配置与密钥
+application-local.yml
+.env.local
+
+# IDE 与系统文件
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# 日志
+*.log

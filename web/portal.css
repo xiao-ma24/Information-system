@@ -1,0 +1,41 @@
+*{box-sizing:border-box}
+body{margin:0;background:#f6f7f3;color:#182d35;font-family:"Microsoft YaHei",sans-serif}
+
+.topbar{height:72px;background:#0d3541;color:#f4f8f6;display:flex;align-items:center;justify-content:space-between;padding:0 34px}
+.brand{display:flex;gap:12px;align-items:center;font-size:15px;font-weight:600;letter-spacing:2px}
+.brand small{display:block;font-size:8px;letter-spacing:1.2px;font-weight:400;color:#a8c3c2}
+.mark{width:36px;height:36px;border:1px solid #91b9b1;display:grid;place-items:center;font:22px Georgia;color:#d8b976}
+
+.account{display:flex;align-items:center;gap:12px;font-size:13px;color:#cfe0dd}
+.account .name{font-weight:600;color:#fff}
+.account .role{border:1px solid #6f9c93;border-radius:3px;padding:2px 8px;font-size:11px;letter-spacing:1px;color:#d8b976}
+.account .uid{color:#8fb0ac;font-size:12px}
+.account button{background:transparent;border:1px solid #5d8680;color:#dfeeeb;padding:7px 16px;border-radius:3px;font:inherit;font-size:12px;cursor:pointer}
+.account button:hover{border-color:#d8b976;color:#d8b976}
+
+.page{max-width:1180px;margin:0 auto;padding:52px 28px 80px}
+.page-head{margin-bottom:36px}
+.eyebrow{font-size:12px;letter-spacing:3px;color:#598c80;margin:0 0 10px}
+.page-head h1{font-size:38px;letter-spacing:3px;margin:0 0 10px}
+.hint{color:#7b8b8a;font-size:14px;margin:0}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px}
+
+.card{position:relative;display:block;width:100%;text-align:left;background:#fff;border:1px solid #dce5e1;border-radius:6px;padding:22px 22px 20px;font:inherit;color:inherit;cursor:pointer;transition:border-color .18s,transform .18s,box-shadow .18s}
+.card:hover{border-color:#236d60;transform:translateY(-2px);box-shadow:0 8px 22px #0d354114}
+.card:focus-visible{outline:3px solid #d3a85b;outline-offset:2px}
+.card .no{font:13px Georgia,serif;letter-spacing:2px;color:#b08a3e}
+.card h2{font-size:18px;margin:8px 0 6px;letter-spacing:1px}
+.card p{margin:0;font-size:12px;color:#8a9a98;line-height:1.7}
+.card .state{position:absolute;top:20px;right:20px;font-size:11px;color:#9aa8a5}
+.card.ready .state{color:#236d60}
+.card.ready{border-color:#bcd8cf;background:#fbfdfb}
+
+.toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%) translateY(14px);background:#0d3541;color:#f4f8f6;padding:11px 20px;border-radius:4px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:640px){
+  .topbar{height:auto;padding:14px 18px;flex-direction:column;align-items:flex-start;gap:10px}
+  .page{padding:32px 18px 60px}
+  .page-head h1{font-size:30px}
+}

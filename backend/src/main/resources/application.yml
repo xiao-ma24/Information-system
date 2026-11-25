@@ -1,0 +1,22 @@
+server:
+  port: ${AUTH_PORT:18080}
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 10000
+  sql:
+    init:
+      mode: never
+
+campus:
+  auth:
+    cookie-name: CAMPUS_SESSION
+    session-ttl: 8h
+    secure-cookie: ${COOKIE_SECURE:false}
+    internal-secret: ${AUTH_INTERNAL_SECRET:}
+    demo-data: ${AUTH_DEMO:false}

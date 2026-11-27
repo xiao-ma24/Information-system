@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Map;
 import java.util.Optional;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,29 @@ public class InternalAuthController {
     @GetMapping("/health")
     public Map<String, String> health() {
         return Map.of("status", "UP");
+    }
+
+    /**
+     * GET 版本：供 Nginx auth_request 使用（子请求无法带 body）。
+     * 令牌通过 X-Session-Token 传入，身份同时写入响应头，供 proxy_set_header 透传。
+     */
+    @GetMapping("/verify")
+    public VerifyResponse verifyByHeader(@RequestHeader(value = SECRET_HEADER, required = false) String secret,
+                                         @RequestHeader(value = "X-Session-Token", required = false) String token,
+                                         HttpServletResponse response) {
+        requireSecret(secret);
+        if (token == null || token.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "缺少会话凭证");
+        }
+        Optional<SessionStore.Session> session = sessions.find(token);
+        if (session.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "凭证无效或已过期");
+        }
+        var s = session.get();
+        response.setHeader("X-User-Id", s.userId());
+        response.setHeader("X-User-Role", s.role() == null ? "" : s.role());
+        response.setHeader("X-User-Business", s.businessId() == null ? "" : s.businessId());
+        return new VerifyResponse(s.userId(), s.name(), s.role(), s.businessId(), s.expiresAt().toString());
     }
 
     @PostMapping("/verify")
